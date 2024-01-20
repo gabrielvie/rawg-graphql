@@ -104,7 +104,7 @@ type Game {
   added_by_status: AddedByStatus!
 
   """Metacritic"""
-  metacritic: Int!
+  metacritic: Int
 
   """Suggestions count"""
   suggestions_count: Int!
@@ -119,8 +119,12 @@ type Game {
 """games """
 type Games {
   count: Float!
-  next: String
-  previous: String
+
+  """Next page"""
+  next: Int
+
+  """Previous page"""
+  previous: Int
   results: [Game!]!
 }
 
@@ -211,18 +215,18 @@ type Query {
 Available fields: `name`, `released`, `added`, `created`, `updated`, `rating`, `metacritic`.       You can reverse the sort order adding a hyphen, for example: `-released`.
 """
 enum string {
-  NAME_ASC
-  NAME_DESC
-  RELEASED_ASC
-  RELEASED_DESC
-  ADDED_ASC
-  ADDED_DESC
-  CREATED_ASC
-  CREATED_DESC
-  UPDATED_ASC
-  UPDATED_DESC
-  RATING_ASC
-  RATING_DESC
-  METACRITIC_ASC
-  METACRITIC_DESC
+  name_asc
+  name_desc
+  released_asc
+  released_desc
+  added_asc
+  added_desc
+  created_asc
+  created_desc
+  updated_asc
+  updated_desc
+  rating_asc
+  rating_desc
+  metacritic_asc
+  metacritic_desc
 }
