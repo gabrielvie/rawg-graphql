@@ -4,6 +4,7 @@ import { Injectable } from '@nestjs/common';
 
 // Local.
 import { RAWGEndpoint } from './models/rawg.enum';
+import { RAWGServiceResponse } from './models/rawg.model';
 import { RAWGHelper } from './rawg.helper';
 
 @Injectable()
@@ -13,10 +14,16 @@ export class RAWGService {
     private readonly httpService: HttpService,
   ) {}
 
-  async query<P, T>(endpoint: RAWGEndpoint, args: P): Promise<T> {
-    const { url, config } = this.rawgHelper.buildRequestInfo<P>(endpoint, args);
+  async query<TArgs, TEntity>(
+    endpoint: RAWGEndpoint,
+    args: TArgs,
+  ): Promise<RAWGServiceResponse<TEntity>> {
+    const { url, config } = this.rawgHelper.buildRequestInfo<TArgs>(
+      endpoint,
+      args,
+    );
     const { data } = await this.httpService.axiosRef.get(url, config);
 
-    return data satisfies T;
+    return data satisfies RAWGServiceResponse<TEntity>;
   }
 }

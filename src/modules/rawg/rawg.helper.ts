@@ -5,7 +5,7 @@ import { AxiosRequestConfig } from 'axios';
 // Local.
 import { Injectable } from '@nestjs/common';
 import { RAWGEndpoint } from './models/rawg.enum';
-import { RAWGRequestInfo } from './models/rawg.model';
+import { RAWGServiceRequestInfo } from './models/rawg.model';
 
 @Injectable()
 export class RAWGHelper {
@@ -16,7 +16,10 @@ export class RAWGHelper {
     this.apiKey = this.configService.get<string>('RAWG_API_KEY');
   }
 
-  buildRequestInfo<P>(endpoint: RAWGEndpoint, args: P): RAWGRequestInfo {
+  buildRequestInfo<TArgs>(
+    endpoint: RAWGEndpoint,
+    args: TArgs,
+  ): RAWGServiceRequestInfo {
     const url: string = `${this.baseURL}/${endpoint}`;
     const config: AxiosRequestConfig = {
       params: {
