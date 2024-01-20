@@ -2,12 +2,227 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-"""game """
+"""Game: Added by status """
+type AddedByStatus {
+  """Yet"""
+  yet: Int!
+
+  """Owned"""
+  owned: Int!
+
+  """Beaten"""
+  beaten: Int!
+
+  """To play"""
+  toplay: Int!
+
+  """Dropped"""
+  dropped: Int!
+
+  """Playing"""
+  playing: Int!
+}
+
+"""Game: Ratings """
+type Ratings {
+  id: ID!
+
+  """Title"""
+  title: String!
+
+  """Count"""
+  count: Int!
+
+  """Percent"""
+  percent: Float!
+}
+
+"""Game: ESRB rating"""
+type ESRBRating {
+  id: ID!
+
+  """Slug"""
+  slug: slug!
+
+  """Name"""
+  name: String!
+}
+
+"""
+Enum: "everyone" "everyone-10-plus" "teen" "mature" "adults-only" "rating-pending"
+"""
+enum slug {
+  everyone
+  everyone_10_plus
+  teen
+  mature
+  adults_only
+  rating_pending
+}
+
+"""Game """
 type Game {
   id: ID!
-  title: String!
+
+  """Slug"""
+  slug: String!
+
+  """Name"""
+  name: String!
+
+  """Playtime (In Hours)"""
+  playtime: Int!
+
+  """Released"""
+  released: String
+
+  """TBA"""
+  tba: Boolean!
+
+  """Background image"""
+  background_image: String!
+
+  """Rating"""
+  rating: Float!
+
+  """Rating top"""
+  rating_top: Int!
+
+  """Ratings"""
+  ratings: [Ratings!]!
+
+  """Ratings count"""
+  ratings_count: Int!
+
+  """Reviews text count"""
+  reviews_text_count: Int!
+
+  """Added"""
+  added: Int!
+
+  """Added by status"""
+  added_by_status: AddedByStatus!
+
+  """Metacritic"""
+  metacritic: Int!
+
+  """Suggestions count"""
+  suggestions_count: Int!
+
+  """Updated"""
+  updated: String!
+
+  """ESRB rating"""
+  esrb_rating: ESRBRating
+}
+
+"""games """
+type Games {
+  count: Float!
+  next: String
+  previous: String
+  results: [Game!]!
 }
 
 type Query {
-  games(page: Int! = 1): [Game!]!
+  games(
+    """A page number within the paginated result set."""
+    page: Int = 1
+
+    """Number of results to return per page."""
+    page_size: Int
+
+    """Search query."""
+    search: String
+
+    """Disable fuzziness for the search query."""
+    search_precise: Boolean
+
+    """Mark the search query as exact."""
+    search_exact: Boolean
+
+    """Filter by parent platforms, for example: `1,2,3`."""
+    parent_platforms: String
+
+    """Filter by platforms, for example: `4,5`."""
+    platforms: String
+
+    """Filter by stores, for example: `5,6`."""
+    stores: String
+
+    """
+    Filter by developers, for example: `1612,18893` or `valve-software,feral-interactive.`
+    """
+    developers: String
+
+    """
+    Filter by publishers, for example: `354,20987` or `electronic-arts,microsoft-studios`.
+    """
+    publishers: String
+
+    """Filter by genres, for example: `4,51` or `action,indie`."""
+    genres: String
+
+    """Filter by tags, for example: `31,7` or `singleplayer,multiplayer`."""
+    tags: String
+
+    """
+    Filter by creators, for example: `78,28` or `cris-velasco,mike-morasky`.
+    """
+    creators: String
+
+    """
+    Filter by a release date, for example: `2010-01-01,2018-12-31.1960-01-01,1969-12-31`.
+    """
+    dates: String
+
+    """Filter by an update date, for example: `2020-12-01,2020-12-31`."""
+    updated: String
+
+    """Filter by platforms count, for example: `1`."""
+    platforms_count: Int
+
+    """Filter by a metacritic rating, for example: `80,100`."""
+    metacritic: String
+
+    """Exclude games from a particular collection, for example: `123`."""
+    exclude_collection: Int
+
+    """Exclude additions."""
+    exclude_additions: Boolean
+
+    """Exclude games which have additions."""
+    exclude_parents: Boolean
+
+    """Exclude games which are included in a game series."""
+    exclude_game_series: Boolean
+
+    """Exclude stores, for example: `5,6`."""
+    exclude_stores: String
+
+    """
+    Available fields: `name`, `released`, `added`, `created`, `updated`, `rating`, `metacritic`.       You can reverse the sort order adding a hyphen, for example: `-released`.
+    """
+    ordering: string
+  ): Games!
+}
+
+"""
+Available fields: `name`, `released`, `added`, `created`, `updated`, `rating`, `metacritic`.       You can reverse the sort order adding a hyphen, for example: `-released`.
+"""
+enum string {
+  NAME_ASC
+  NAME_DESC
+  RELEASED_ASC
+  RELEASED_DESC
+  ADDED_ASC
+  ADDED_DESC
+  CREATED_ASC
+  CREATED_DESC
+  UPDATED_ASC
+  UPDATED_DESC
+  RATING_ASC
+  RATING_DESC
+  METACRITIC_ASC
+  METACRITIC_DESC
 }
