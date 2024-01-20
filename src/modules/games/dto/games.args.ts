@@ -2,20 +2,20 @@ import { ArgsType, Field, Int, registerEnumType } from '@nestjs/graphql';
 import { IsEnum, IsOptional, Min } from 'class-validator';
 
 enum GamesOrdering {
-  NAME_ASC = 'name',
-  NAME_DESC = '-name',
-  RELEASED_ASC = 'released',
-  RELEASED_DESC = '-released',
-  ADDED_ASC = 'added',
-  ADDED_DESC = '-added',
-  CREATED_ASC = 'created',
-  CREATED_DESC = '-created',
-  UPDATED_ASC = 'updated',
-  UPDATED_DESC = '-updated',
-  RATING_ASC = 'rating',
-  RATING_DESC = '-rating',
-  METACRITIC_ASC = 'metacritic',
-  METACRITIC_DESC = '-metacritic',
+  name_asc = 'name',
+  name_desc = '-name',
+  released_asc = 'released',
+  released_desc = '-released',
+  added_asc = 'added',
+  added_desc = '-added',
+  created_asc = 'created',
+  created_desc = '-created',
+  updated_asc = 'updated',
+  updated_desc = '-updated',
+  rating_asc = 'rating',
+  rating_desc = '-rating',
+  metacritic_asc = 'metacritic',
+  metacritic_desc = '-metacritic',
 }
 
 registerEnumType(GamesOrdering, {
