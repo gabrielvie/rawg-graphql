@@ -133,7 +133,7 @@ export class Game {
   added_by_status: AddedByStatus;
 
   @Field(() => Int, { description: 'Metacritic' })
-  metacritic: number;
+  metacritic?: number;
 
   @Field(() => Int, { description: 'Suggestions count' })
   suggestions_count: number;
