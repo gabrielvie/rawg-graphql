@@ -15,10 +15,8 @@ export class RAWGService {
 
   async query<P, T>(endpoint: RAWGEndpoint, args: P): Promise<T> {
     const { url, config } = this.rawgHelper.buildRequestInfo<P>(endpoint, args);
-
     const { data } = await this.httpService.axiosRef.get(url, config);
-    console.info(data);
 
-    return [] as T;
+    return data satisfies T;
   }
 }
