@@ -31,33 +31,35 @@ describe(GamesService.name, () => {
     expect(service).toBeDefined();
   });
 
-  it('should call query method with the correct arguments', async () => {
-    // Arrange.
-    const gamesArgs: GamesArgs = {
-      page: 1,
-      search: 'Grand Theft Auto V',
-    };
-    const endpoint: RAWGEndpoint = RAWGEndpoint.games;
-    const expectedResults: Games = {
-      count: 2,
-      next: null,
-      previous: null,
-      results: [
-        {
-          id: 1,
-          slug: 'grand-theft-auto-v',
-          name: 'Grand Theft Auto V',
-        },
-      ],
-    };
+  describe('::findAll', () => {
+    it('should call query method with the correct arguments and return the expected results.', async () => {
+      // Arrange.
+      const gamesArgs: GamesArgs = {
+        page: 1,
+        search: 'Grand Theft Auto V',
+      };
+      const endpoint: RAWGEndpoint = RAWGEndpoint.games;
+      const expectedResults: Games = {
+        count: 2,
+        next: null,
+        previous: null,
+        results: [
+          {
+            id: 1,
+            slug: 'grand-theft-auto-v',
+            name: 'Grand Theft Auto V',
+          },
+        ],
+      };
 
-    jest.spyOn(rawgService, 'query').mockResolvedValue(expectedResults);
+      jest.spyOn(rawgService, 'query').mockResolvedValue(expectedResults);
 
-    // Act.
-    const result = await service.findAll(gamesArgs);
+      // Act.
+      const result = await service.findAll(gamesArgs);
 
-    // Assert.
-    expect(rawgService.query).toHaveBeenCalledWith(endpoint, gamesArgs);
-    expect(result).toStrictEqual(expectedResults);
+      // Assert.
+      expect(rawgService.query).toHaveBeenCalledWith(endpoint, gamesArgs);
+      expect(result).toStrictEqual(expectedResults);
+    });
   });
 });
