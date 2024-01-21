@@ -5,7 +5,8 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { GamesArgs } from './dto/games.args';
 import { GamesResolver } from './games.resolver';
 import { GamesService } from './games.service';
-import { Games } from './models/games.model';
+import { generateGameMock } from './models/game.mock';
+import { generateGamesMock } from './models/games.mock';
 
 describe(GamesResolver.name, () => {
   let resolver: GamesResolver;
@@ -34,18 +35,16 @@ describe(GamesResolver.name, () => {
     it('should call findAll method of GamesService with the correct arguments', async () => {
       // Arrange.
       const args: GamesArgs = { page: 1, search: 'Grand Theft Auto V' };
-      const expectedResults: Games = {
-        count: 2,
-        next: null,
-        previous: null,
-        results: [
-          {
-            id: 1,
-            slug: 'grand-theft-auto-v',
-            name: 'Grand Theft Auto V',
-          },
-        ],
-      };
+      const game = generateGameMock({
+        id: 1,
+        slug: 'grand-theft-auto-v',
+        name: 'Grand Theft Auto V',
+      });
+      const expectedResults = generateGamesMock({
+        next: 3,
+        previous: 1,
+        results: [game],
+      });
 
       jest.spyOn(gamesService, 'findAll').mockResolvedValue(expectedResults);
 

@@ -3,9 +3,12 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 // Local.
 import { RAWGEndpoint } from '../rawg/models/rawg.enum';
+import { generateRAWGServiceResponseMock } from '../rawg/models/rawg.mock';
 import { RAWGService } from '../rawg/rawg.service';
 import { GamesArgs } from './dto/games.args';
 import { GamesService } from './games.service';
+import { generateGameMock } from './models/game.mock';
+import { Game } from './models/game.model';
 import { Games } from './models/games.model';
 
 describe(GamesService.name, () => {
@@ -38,21 +41,25 @@ describe(GamesService.name, () => {
         page: 1,
         search: 'Grand Theft Auto V',
       };
+      const game = generateGameMock({
+        id: 1,
+        slug: 'grand-theft-auto-v',
+        name: 'Grand Theft Auto V',
+      });
       const endpoint: RAWGEndpoint = RAWGEndpoint.games;
+      const resolvedValueFromAPI = generateRAWGServiceResponseMock<Game>({
+        next: 'http://example.com?key=null&page=3',
+        previous: 'http://example.com?page=1',
+        results: [game],
+      });
+
       const expectedResults: Games = {
-        count: 2,
-        next: null,
-        previous: null,
-        results: [
-          {
-            id: 1,
-            slug: 'grand-theft-auto-v',
-            name: 'Grand Theft Auto V',
-          },
-        ],
+        ...resolvedValueFromAPI,
+        next: 3,
+        previous: 1,
       };
 
-      jest.spyOn(rawgService, 'query').mockResolvedValue(expectedResults);
+      jest.spyOn(rawgService, 'query').mockResolvedValue(resolvedValueFromAPI);
 
       // Act.
       const result = await service.findAll(gamesArgs);

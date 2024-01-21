@@ -28,7 +28,7 @@ class AddedByStatus {
   playing: number;
 }
 
-enum ESRBRatingSlug {
+export enum ESRBRatingSlug {
   everyone = 'everyone',
   everyone_10_plus = 'everyone-10-plus',
   teen = 'teen',
@@ -37,7 +37,7 @@ enum ESRBRatingSlug {
   rating_pending = 'rating-pending',
 }
 
-enum ESRBRatingName {
+export enum ESRBRatingName {
   everyone = 'Everyone',
   everyone_10_plus = 'Everyone 10+',
   teen = 'Teen',

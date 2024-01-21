@@ -13,5 +13,5 @@ export class Games {
   previous?: number;
 
   @Field(() => [Game])
-  results: [Game];
+  results: Game[];
 }

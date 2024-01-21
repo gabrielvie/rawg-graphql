@@ -29,12 +29,12 @@ export class GamesService {
     };
   }
 
-  private extractPageNumber(url: string): number | null {
+  private extractPageNumber(urlString: string): number | null {
     let page = null;
 
     try {
-      const urlParams = new URLSearchParams(url);
-      const pageParam = urlParams.get('page');
+      const url = new URL(urlString);
+      const pageParam = url.searchParams.get('page');
 
       if (pageParam) {
         page = parseInt(pageParam, 10);
