@@ -1,5 +1,10 @@
+// External.
 import { faker } from '@faker-js/faker';
-import { ESRBRatingName, ESRBRatingSlug, Game } from './game.model';
+
+// Local.
+import { generatePlatformMock } from 'src/modules/platforms/models/platform.mock';
+import { GameESRBRatingName, GameESRBRatingSlug } from './game.enum';
+import { Game } from './game.model';
 
 export function generateGameMock({
   id = faker.number.int(),
@@ -40,8 +45,22 @@ export function generateGameMock({
     updated: faker.date.recent().toISOString(),
     esrb_rating: {
       id: faker.number.int(),
-      slug: faker.helpers.arrayElement(Object.values(ESRBRatingSlug)),
-      name: faker.helpers.arrayElement(Object.values(ESRBRatingName)),
+      slug: faker.helpers.arrayElement(Object.values(GameESRBRatingSlug)),
+      name: faker.helpers.arrayElement(Object.values(GameESRBRatingName)),
     },
+    platforms: [
+      {
+        platform: generatePlatformMock({
+          id: faker.number.int(),
+          slug: faker.lorem.slug(),
+          name: faker.lorem.words(),
+        }),
+        released_at: undefined,
+        requirements: {
+          minimum: faker.lorem.paragraphs(5),
+          recommended: faker.lorem.paragraphs(5),
+        },
+      },
+    ],
   };
 }
