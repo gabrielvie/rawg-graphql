@@ -3,7 +3,7 @@
 # ------------------------------------------------------
 
 """Game: Added by status """
-type AddedByStatus {
+type GameAddedByStatus {
   """Yet"""
   yet: Int!
 
@@ -23,22 +23,8 @@ type AddedByStatus {
   playing: Int!
 }
 
-"""Game: Ratings """
-type Ratings {
-  id: ID!
-
-  """Title"""
-  title: String!
-
-  """Count"""
-  count: Int!
-
-  """Percent"""
-  percent: Float!
-}
-
 """Game: ESRB rating"""
-type ESRBRating {
+type GameESRBRating {
   id: ID!
 
   """Slug"""
@@ -58,6 +44,67 @@ enum slug {
   mature
   adults_only
   rating_pending
+}
+
+"""Platform """
+type Platform {
+  id: ID!
+
+  """Slug"""
+  slug: String!
+
+  """Name"""
+  name: String!
+
+  """Games count"""
+  games_count: Int!
+
+  """Image background"""
+  image_background: String!
+
+  """Image"""
+  image: String
+
+  """Year start"""
+  year_start: Int
+
+  """Year end"""
+  year_end: Int
+}
+
+"""Game: Platform Requirements"""
+type GamePlatformRequirements {
+  """Minimum"""
+  minimum: String!
+
+  """Recommended"""
+  recommended: String!
+}
+
+"""Game: Platform"""
+type GamePlatform {
+  """Platforms"""
+  platform: Platform!
+
+  """Release at"""
+  released_at: String
+
+  """Requirements"""
+  requirements: GamePlatformRequirements
+}
+
+"""Game: Ratings """
+type GameRatings {
+  id: ID!
+
+  """Title"""
+  title: String!
+
+  """Count"""
+  count: Int!
+
+  """Percent"""
+  percent: Float!
 }
 
 """Game """
@@ -89,7 +136,7 @@ type Game {
   rating_top: Int!
 
   """Ratings"""
-  ratings: [Ratings!]!
+  ratings: [GameRatings!]!
 
   """Ratings count"""
   ratings_count: Int!
@@ -101,7 +148,7 @@ type Game {
   added: Int!
 
   """Added by status"""
-  added_by_status: AddedByStatus!
+  added_by_status: GameAddedByStatus!
 
   """Metacritic"""
   metacritic: Int
@@ -113,7 +160,10 @@ type Game {
   updated: String!
 
   """ESRB rating"""
-  esrb_rating: ESRBRating
+  esrb_rating: GameESRBRating
+
+  """Platforms"""
+  platforms: [GamePlatform!]
 }
 
 """games """
