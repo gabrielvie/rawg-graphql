@@ -32,7 +32,7 @@ describe(GamesResolver.name, () => {
   });
 
   describe('::games', () => {
-    it('should call findAll method of GamesService with the correct arguments', async () => {
+    it('should call ::findAll method from GamesService with the correct arguments', async () => {
       // Arrange.
       const args: GamesArgs = { page: 1, search: 'Grand Theft Auto V' };
       const game = generateGameMock({
@@ -53,6 +53,7 @@ describe(GamesResolver.name, () => {
 
       // Assert.
       expect(gamesService.findAll).toHaveBeenCalledWith(args);
+
       expect(result).toStrictEqual(expectedResults);
     });
   });
